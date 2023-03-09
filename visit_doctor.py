@@ -51,6 +51,14 @@ def insertClient(name, surname, email, date_of_birth, type_of_visit):
     ''', (name, surname, email, date_of_birth, type_of_visit))
 
 
+# Delete method to delete a record based on email
+def deleteClient(email):
+    cursor.execute('''
+        DELETE FROM clients
+        WHERE email=?
+    ''', (email,))
+
+
 # Four columns for four buttons of CRUD
 st.markdown("---")
 
