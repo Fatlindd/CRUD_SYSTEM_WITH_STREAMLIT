@@ -20,4 +20,8 @@ with col1:
 with col2:
     st.image('doctors.png')
 
+# Four columns for four buttons of CRUD
 st.markdown("---")
+
+with col1:
+    create = st.button('Create')
