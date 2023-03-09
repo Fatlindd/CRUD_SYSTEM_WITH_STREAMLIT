@@ -65,6 +65,10 @@ st.markdown("---")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     create = st.button('Create')
+    if create:
+        insertClient(name, surname, email, date_of_birth, type_of_visit)
+        conn.commit()
+        st.write()
 
 with col2:
     read = st.button('Read')
