@@ -17,3 +17,5 @@ with col1:
         ('Eye Doctor', 'Dentist', 'Dermatologist', 'Primary Care Provider',)
     )
 
+with col2:
+    st.image('doctors.png')
