@@ -37,4 +37,6 @@ with col3:
 
 with col4:
     delete = st.button('Delete')
-    
+
+with col5:
+    file = st.button('Import from file')
