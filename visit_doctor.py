@@ -23,9 +23,13 @@ with col2:
 # Four columns for four buttons of CRUD
 st.markdown("---")
 
+col1, col2, col3, col4, col5 = st.columns(5)
+
 with col1:
     create = st.button('Create')
 
 with col2:
     read = st.button('Read')
 
+with col3:
+    update = st.button('Update')
