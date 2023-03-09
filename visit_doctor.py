@@ -4,13 +4,31 @@ import sqlite3
 
 st.title(':male-doctor: Metting with the doctor :female-doctor:')
 
+
 # connection to database
 conn = sqlite3.connect('clients.db')
 cursor = conn.cursor()
 
+
+# Creating tables for clients with 5 columns 
+try:
+    table = '''
+        CREATE TABLE IF NOT EXIST clients (
+            NAME VARCHAR(255),
+            SURNAME VARCHAR(255),
+            EMAIL VARCHAR(255),
+            DATA_OF_BIRTH TEXT,
+            TYPE_OF_VISIT TEXT
+        );
+    '''
+    cursor.execute(table)
+except sqlite3.Error as e:
+    print(f"Database connection error: {e}")
+
+
+
 # Two columns, one for inputs and another one for image
 col1, col2 = st.columns(2)
-
 with col1:
     name = st.text_input('Name: ')
     surname = st.text_input('Surname: ')
@@ -28,7 +46,6 @@ with col2:
 st.markdown("---")
 
 col1, col2, col3, col4, col5 = st.columns(5)
-
 with col1:
     create = st.button('Create')
 
@@ -44,6 +61,7 @@ with col4:
 
 with col5:
     file = st.button('Import from file')
+
 
 # Adding CSS Style for button with width: 150px and height: auto
 button_width = '140px'
