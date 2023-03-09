@@ -19,3 +19,5 @@ with col1:
 
 with col2:
     st.image('doctors.png')
+
+st.markdown("---")
