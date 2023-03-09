@@ -42,6 +42,15 @@ with col1:
 with col2:
     st.image('doctors.png')
 
+
+# Insert Method to add data into database clients
+def insertClient(name, surname, email, date_of_birth, type_of_visit):
+    cursor.execute('''
+        INSERT INTO clients
+        VALUES (?, ?, ?, ?, ?)
+    ''', (name, surname, email, date_of_birth, type_of_visit))
+
+
 # Four columns for four buttons of CRUD
 st.markdown("---")
 
