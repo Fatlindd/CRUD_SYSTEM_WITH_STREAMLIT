@@ -6,6 +6,7 @@ st.title(':male-doctor: Metting with the doctor :female-doctor:')
 
 # connection to database
 conn = sqlite3.connect('clients.db')
+cursor = conn.cursor()
 
 # Two columns, one for inputs and another one for image
 col1, col2 = st.columns(2)
