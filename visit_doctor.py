@@ -40,3 +40,16 @@ with col4:
 
 with col5:
     file = st.button('Import from file')
+
+# Adding CSS Style for button with width: 150px and height: auto
+button_width = '140px'
+st.markdown(
+    f'''
+    <style>
+        div.stButton > button:first-child {{
+        width: {button_width};
+        height: auto;
+        }}
+    </style>
+    ''', unsafe_allow_html=True,
+)
