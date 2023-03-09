@@ -25,3 +25,7 @@ st.markdown("---")
 
 with col1:
     create = st.button('Create')
+
+with col2:
+    read = st.button('Read')
+
