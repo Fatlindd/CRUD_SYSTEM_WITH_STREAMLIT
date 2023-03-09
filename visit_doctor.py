@@ -33,3 +33,8 @@ with col2:
 
 with col3:
     update = st.button('Update')
+
+
+with col4:
+    delete = st.button('Delete')
+    
