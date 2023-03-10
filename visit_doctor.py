@@ -26,7 +26,6 @@ cursor = conn.cursor()
 #     print(f"Database connection error: {e}")
 
 
-
 # Two columns, one for inputs and another one for image
 col1, col2 = st.columns(2)
 with col1:
@@ -72,10 +71,12 @@ with col1:
     if create:
         insertClient(name, surname, email, date_of_birth, type_of_visit)
         conn.commit()
-        st.success('Client was successfully added!')
+        st.write('Client was successfully added!')
+
 
 with col2:
     read = st.button('Read')
+
 
 with col3:
     update = st.button('Update')
@@ -83,6 +84,11 @@ with col3:
 
 with col4:
     delete = st.button('Delete')
+    if delete:
+        deleteClient(email)
+        conn.commit()
+        st.write(f"Client with {email} is removed!")
+
 
 with col5:
     file = st.button('Import from file')
