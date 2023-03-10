@@ -10,7 +10,7 @@ conn = sqlite3.connect('clients.db')
 cursor = conn.cursor()
 
 
-# # Creating tables for clients with 5 columns 
+# Creating tables for clients with 5 columns 
 # try:
 #     table = '''
 #         CREATE TABLE IF NOT EXISTS clients (
@@ -41,6 +41,23 @@ with col1:
 with col2:
     st.image('doctors.png')
 
+# Update method is to populate fields of input when we add email and we want to update
+def updateClient(email):
+    # Query database for user data based on email
+    query = "SELECT * FROM clients WHERE EMAIL = ?"
+    cursor.execute(query, (email,))
+    row = cursor.fetchone()
+    return row
+
+    # if row:
+    #     name.text_input("Name: ", value=row[0])
+    #     surname.text_input("Surname: ", value=row[1])
+    # else:
+    #     # Handle case where email is not found in database
+    #     pass
+
+name = st.empty()
+surname = st.empty()
 
 # Insert Method to add data into database clients
 def insertClient(name, surname, email, date_of_birth, type_of_visit):
@@ -81,7 +98,18 @@ with col2:
 
 with col3:
     update = st.button('Update')
-
+    if update:
+        user_data = updateClient(email)
+        user_name = user_data[0]
+        user_surname = user_data[1]
+        user_date_of_birth = user_data[3]
+        user_type_of_visit = user_data[4]
+        
+        # if user_data:
+        #     name.text_input("Name: ", value=user_data[0])
+        #     surname.text_input("Surname: ", value=user_data[1])
+        # else:
+        #     st.write("User not found!")
 
 with col4:
     delete = st.button('Delete')
@@ -99,6 +127,8 @@ with col4:
 with col5:
     file = st.button('Import from file')
 
+
+# CSS Style activated after a success message or error message
 try: 
     if flag == 1:
         st.markdown(success_message, unsafe_allow_html= True)
