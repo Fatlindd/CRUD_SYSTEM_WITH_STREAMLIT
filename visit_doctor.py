@@ -90,11 +90,16 @@ with col4:
             conn.commit()
             st.write(f"Client with {email} is removed!")
         else:
-            st.markdown("<span style='color:red'>Please 'email' field is necessary!</span>", unsafe_allow_html=True)
+            message = """<div class='message'>Please 'email' field is necessary!</div>"""
+
 
 with col5:
     file = st.button('Import from file')
-    
+
+try:    
+    st.markdown(message, unsafe_allow_html= True)
+except:
+    pass
 
 # Adding CSS Style for button with width: 150px and height: auto
 button_width = '140px'
@@ -105,6 +110,14 @@ st.markdown(
         width: {button_width};
         height: auto;
         }}
+
+        .message {{
+        padding: 13px;
+        background-color: #F5F5F5;
+        color: #CD0000;
+        border-radius: 5px;
+        }}
+
     </style>
     ''', unsafe_allow_html=True,
 )
