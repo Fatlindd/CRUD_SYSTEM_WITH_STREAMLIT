@@ -71,7 +71,7 @@ with col1:
     if create:
         insertClient(name, surname, email, date_of_birth, type_of_visit)
         conn.commit()
-        st.write('Client was successfully added!')
+        st.success('Client was successfully added!')
 
 
 with col2:
@@ -85,14 +85,16 @@ with col3:
 with col4:
     delete = st.button('Delete')
     if delete:
-        deleteClient(email)
-        conn.commit()
-        st.write(f"Client with {email} is removed!")
-
+        if email != '':
+            deleteClient(email)
+            conn.commit()
+            st.write(f"Client with {email} is removed!")
+        else:
+            st.markdown("<span style='color:red'>Please 'email' field is necessary!</span>", unsafe_allow_html=True)
 
 with col5:
     file = st.button('Import from file')
-
+    
 
 # Adding CSS Style for button with width: 150px and height: auto
 button_width = '140px'
