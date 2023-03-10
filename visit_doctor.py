@@ -38,26 +38,19 @@ with col1:
         ('Eye Doctor', 'Dentist', 'Dermatologist', 'Primary Care Provider',)
     )
 
+
 with col2:
     st.image('doctors.png')
+
 
 # Update method is to populate fields of input when we add email and we want to update
 def updateClient(email):
     # Query database for user data based on email
     query = "SELECT * FROM clients WHERE EMAIL = ?"
     cursor.execute(query, (email,))
-    row = cursor.fetchone()
-    return row
+    result = cursor.fetchone()
 
-    # if row:
-    #     name.text_input("Name: ", value=row[0])
-    #     surname.text_input("Surname: ", value=row[1])
-    # else:
-    #     # Handle case where email is not found in database
-    #     pass
 
-name = st.empty()
-surname = st.empty()
 
 # Insert Method to add data into database clients
 def insertClient(name, surname, email, date_of_birth, type_of_visit):
@@ -73,6 +66,7 @@ def deleteClient(email):
         DELETE FROM clients
         WHERE email=?
     ''', (email,))
+
 
 
 # Four columns for four buttons of CRUD
@@ -99,17 +93,8 @@ with col2:
 with col3:
     update = st.button('Update')
     if update:
-        user_data = updateClient(email)
-        user_name = user_data[0]
-        user_surname = user_data[1]
-        user_date_of_birth = user_data[3]
-        user_type_of_visit = user_data[4]
-        
-        # if user_data:
-        #     name.text_input("Name: ", value=user_data[0])
-        #     surname.text_input("Surname: ", value=user_data[1])
-        # else:
-        #     st.write("User not found!")
+        updateClient(email)
+
 
 with col4:
     delete = st.button('Delete')
