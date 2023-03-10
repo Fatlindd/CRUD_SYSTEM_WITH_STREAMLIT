@@ -44,10 +44,6 @@ with col2:
 
 # Insert Method to add data into database clients
 def insertClient(name, surname, email, date_of_birth, type_of_visit):
-    email = cursor.execute('SELECT * FROM clients WHERE EMAIL=?', (email,))
-    if email:
-        st.write('This client exist in database.')
-    else:
         cursor.execute('''
             INSERT INTO clients
             VALUES (?, ?, ?, ?, ?)
@@ -69,9 +65,14 @@ col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     create = st.button('Create')
     if create:
-        insertClient(name, surname, email, date_of_birth, type_of_visit)
-        conn.commit()
-        st.success('Client was successfully added!')
+        if name != "" and surname != "" and email != "" and date_of_birth != "" and type_of_visit != "":
+            insertClient(name, surname, email, date_of_birth, type_of_visit)
+            conn.commit()
+            success_message = "<div class='success_message'>Client was successfully added!</div>"
+            flag = 1
+        else:
+            error_message = "<div class='error_message'>Please all fields are required!</div>"
+            flag = 0
 
 
 with col2:
@@ -88,16 +89,21 @@ with col4:
         if email != '':
             deleteClient(email)
             conn.commit()
-            st.write(f"Client with {email} is removed!")
+            success_message = f"<div class='success_message'>Client with email {email} is removed!</div>"
+            flag = 1
         else:
-            message = """<div class='message'>Please 'email' field is necessary!</div>"""
+            error_message = "<div class='error_message'>Please 'email' field is necessary!</div>"
+            flag = 0
 
 
 with col5:
     file = st.button('Import from file')
 
-try:    
-    st.markdown(message, unsafe_allow_html= True)
+try: 
+    if flag == 1:
+        st.markdown(success_message, unsafe_allow_html= True)
+    else:
+        st.markdown(error_message, unsafe_allow_html= True)
 except:
     pass
 
@@ -111,13 +117,19 @@ st.markdown(
         height: auto;
         }}
 
-        .message {{
+        .error_message {{
         padding: 13px;
         background-color: #F5F5F5;
         color: #CD0000;
         border-radius: 5px;
         }}
 
+        .success_message {{
+        padding: 13px;
+        background-color: #F5F5F5;
+        color: #53A95D;
+        border-radius: 5px;
+        }}
     </style>
     ''', unsafe_allow_html=True,
 )
