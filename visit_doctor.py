@@ -10,20 +10,20 @@ conn = sqlite3.connect('clients.db')
 cursor = conn.cursor()
 
 
-# Creating tables for clients with 5 columns 
-try:
-    table = '''
-        CREATE TABLE IF NOT EXISTS clients (
-            NAME VARCHAR(255),
-            SURNAME VARCHAR(255),
-            EMAIL VARCHAR(255),
-            DATA_OF_BIRTH TEXT,
-            TYPE_OF_VISIT TEXT
-        );
-    '''
-    cursor.execute(table)
-except sqlite3.Error as e:
-    print(f"Database connection error: {e}")
+# # Creating tables for clients with 5 columns 
+# try:
+#     table = '''
+#         CREATE TABLE IF NOT EXISTS clients (
+#             NAME VARCHAR(255),
+#             SURNAME VARCHAR(255),
+#             EMAIL VARCHAR(255),
+#             DATA_OF_BIRTH TEXT,
+#             TYPE_OF_VISIT TEXT
+#         );
+#     '''
+#     cursor.execute(table)
+# except sqlite3.Error as e:
+#     print(f"Database connection error: {e}")
 
 
 
@@ -45,10 +45,14 @@ with col2:
 
 # Insert Method to add data into database clients
 def insertClient(name, surname, email, date_of_birth, type_of_visit):
-    cursor.execute('''
-        INSERT INTO clients
-        VALUES (?, ?, ?, ?, ?)
-    ''', (name, surname, email, date_of_birth, type_of_visit))
+    email = cursor.execute('SELECT * FROM clients WHERE EMAIL=?', (email,))
+    if email:
+        st.write('This client exist in database.')
+    else:
+        cursor.execute('''
+            INSERT INTO clients
+            VALUES (?, ?, ?, ?, ?)
+        ''', (name, surname, email, date_of_birth, type_of_visit))
 
 
 # Delete method to delete a record based on email
@@ -68,7 +72,7 @@ with col1:
     if create:
         insertClient(name, surname, email, date_of_birth, type_of_visit)
         conn.commit()
-        st.write()
+        st.success('Client was successfully added!')
 
 with col2:
     read = st.button('Read')
