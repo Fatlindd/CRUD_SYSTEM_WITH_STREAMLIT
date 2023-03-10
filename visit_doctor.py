@@ -13,7 +13,7 @@ cursor = conn.cursor()
 # Creating tables for clients with 5 columns 
 try:
     table = '''
-        CREATE TABLE IF NOT EXIST clients (
+        CREATE TABLE IF NOT EXISTS clients (
             NAME VARCHAR(255),
             SURNAME VARCHAR(255),
             EMAIL VARCHAR(255),
