@@ -76,12 +76,24 @@ def deleteClient(email):
 
 # readData method is used to read data from database based on email
 def readData(email):
-    cursor.execute("SELECT * FROM clients WHERE EMAIL=?", (email,))
-    data = cursor.fetchall()
-    new_data = [
-        {'Name': row[0], 'Surname': row[1], 'Email': row[2], 'Date of birth': row[3], 'Type of visit': row[4]}
+    if email == 'all':
+        cursor.execute("SELECT * FROM clients")
+        data = cursor.fetchall()
+        new_data = [
+                    {'Name': row[0], 
+                     'Surname': row[1], 
+                     'Email': row[2], 
+                     'Date of birth': row[3], 
+                     'Type of visit': row[4]}
         for row in data
     ]
+    else: 
+        cursor.execute("SELECT * FROM clients WHERE EMAIL=?", (email,))
+        data = cursor.fetchall()
+        new_data = [
+            {'Name': row[0], 'Surname': row[1], 'Email': row[2], 'Date of birth': row[3], 'Type of visit': row[4]}
+            for row in data
+        ]
     return new_data
 
 
@@ -121,7 +133,7 @@ with col2:
     read = st.button('Read')
     if read:
         data = readData(email)
-        if email != '':
+        if email != '' or email == 'all':
             flag = 2
         else:
             error_message = "<div class='error_message'>Please 'email' field is necessary!</div>"
