@@ -72,8 +72,11 @@ def deleteClient(email):
 def readData(email):
     cursor.execute("SELECT * FROM clients WHERE EMAIL=?", (email,))
     data = cursor.fetchall()
-    
-    return data
+    new_data = [
+        {'Name': row[0], 'Surname': row[1], 'Email': row[2], 'Date of birth': row[3], 'Type of visit': row[4]}
+        for row in data
+    ]
+    return new_data
 
 
 # Four columns for four buttons of CRUD
