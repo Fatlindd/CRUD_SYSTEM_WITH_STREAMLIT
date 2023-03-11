@@ -85,6 +85,21 @@ def readData(email):
     return new_data
 
 
+def importDataFromFile():
+    with open('clients.csv', 'rt') as file:
+        rows = file.readlines()
+    
+    for row in rows:
+        value = row.strip().split(',')
+        if value[0] != 'name':
+            name = value[0]
+            surname = value[1]
+            email = value[2]
+            birthday = value[3]
+            typeOfVisit = value[4]
+            cursor.execute("INSERT INTO clients VALUES(?, ?, ?, ?, ?)", (name, surname, email, birthday, typeOfVisit))
+
+
 # Four columns for four buttons of CRUD
 st.markdown("---")
 
@@ -134,6 +149,8 @@ with col4:
 
 with col5:
     file = st.button('Import from file')
+    if file:
+        importDataFromFile()
 
 
 # CSS Style activated after a success message or error message
