@@ -106,6 +106,7 @@ with col2:
             error_message = "<div class='error_message'>Please 'email' field is necessary!</div>"
             flag = 0
 
+
 with col3:
     update = st.button('Update')
     if update:
@@ -134,6 +135,7 @@ try:
     if flag == 1:
         st.markdown(success_message, unsafe_allow_html= True)
     elif flag == 2:
+        st.markdown('---')
         st.table(data)
     else:
         st.markdown(error_message, unsafe_allow_html= True)
