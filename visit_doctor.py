@@ -151,6 +151,9 @@ with col5:
     file = st.button('Import from file')
     if file:
         importDataFromFile()
+        conn.commit()
+        success_message = f"<div class='success_message'>File clients.csv is uploaded to database!</div>"
+        flag = 1
 
 
 # CSS Style activated after a success message or error message
