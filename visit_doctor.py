@@ -1,5 +1,6 @@
 import streamlit as st
 import sqlite3
+from datetime import date
 
 
 st.title(':male-doctor: Metting with the doctor :female-doctor:')
@@ -26,13 +27,18 @@ cursor = conn.cursor()
 #     print(f"Database connection error: {e}")
 
 
+# min_date and max_date because by default date_input offer  2013 to 2023
+# and we have optional parameters to display for example years from 1950 to 2023
+min_date = date(1950, 1, 1)
+max_date = date(2023, 12, 31)
+
 # Two columns, one for inputs and another one for image
 col1, col2 = st.columns(2)
 with col1:
     name = st.text_input('Name: ')
     surname = st.text_input('Surname: ')
     email = st.text_input('Email: ')
-    date_of_birth = st.date_input('Date of birth: ')
+    date_of_birth = st.date_input('Date of birth: ', value=date.today(), min_value=min_date, max_value=max_date)
     type_of_visit = st.selectbox(
         'Please enter your type of visit!',
         ('Eye Doctor', 'Dentist', 'Dermatologist', 'Primary Care Provider',)
