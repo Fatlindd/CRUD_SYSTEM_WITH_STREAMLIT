@@ -68,6 +68,13 @@ def deleteClient(email):
     ''', (email,))
 
 
+# readData method is used to read data from database based on email
+def readData(email):
+    cursor.execute("SELECT * FROM clients WHERE EMAIL=?", (email,))
+    data = cursor.fetchall()
+    
+    return data
+
 
 # Four columns for four buttons of CRUD
 st.markdown("---")
@@ -88,7 +95,13 @@ with col1:
 
 with col2:
     read = st.button('Read')
-
+    if read:
+        data = readData(email)
+        if email != '':
+            flag = 2
+        else:
+            error_message = "<div class='error_message'>Please 'email' field is necessary!</div>"
+            flag = 0
 
 with col3:
     update = st.button('Update')
@@ -117,6 +130,8 @@ with col5:
 try: 
     if flag == 1:
         st.markdown(success_message, unsafe_allow_html= True)
+    elif flag == 2:
+        st.table(data)
     else:
         st.markdown(error_message, unsafe_allow_html= True)
 except:
@@ -145,6 +160,7 @@ st.markdown(
         color: #53A95D;
         border-radius: 5px;
         }}
+
     </style>
     ''', unsafe_allow_html=True,
 )
