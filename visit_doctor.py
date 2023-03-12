@@ -3,7 +3,8 @@ import sqlite3
 from datetime import date
 
 
-st.title(':male-doctor: :blue[Metting with the doctor] :female-doctor:')
+st.markdown("<h1 style='text-align: center; color: #0261BB;'>Metting with the doctor</h1>", unsafe_allow_html=True)
+st.markdown("<h6 style='text-align: center; color: #E50000;'>!!! Let your information below please !!!</h6>", unsafe_allow_html=True)
 
 # connection to database
 conn = sqlite3.connect('clients.db')

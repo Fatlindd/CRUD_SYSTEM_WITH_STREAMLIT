@@ -1,1 +1,3 @@
 # CRUD_SYSTEM_WITH_STREAMLIT
+
+A small app for visits to doctors, and for this we need some information about the client, such as the fields first name, last name, email, birthday and type of visit. All fields are required to create a client, and also the main role is played by the email field, because each client's email is unique. To delete a customer, we must base it on his/her email, reading the data is also based on the email. If we want to read all the data we have in the database, then in the email field we write 'all' and click on the read button. The app is built in Python using the streamli library which is a powerful tool for creating interactive web applications quickly.
