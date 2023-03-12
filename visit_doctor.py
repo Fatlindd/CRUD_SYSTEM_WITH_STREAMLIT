@@ -119,9 +119,10 @@ with col1:
     create = st.button('Create')
     if create:
         if name != "" and surname != "" and email != "" and date_of_birth != "" and type_of_visit != "":
-            client_email = cursor.execute("SELECT * FROM clients WHERE EMAIL=?", (email, ))
-            if client_email:
-                error_message = f"<div class='error_message'>Client {name} {surname} with email {email} exist on database!</div>"
+            cursor.execute("SELECT * FROM clients WHERE EMAIL=?", (email, ))
+            client_email = cursor.fetchone()
+            if client_email is not None:
+                error_message = f"<div class='error_message'>Client <b>{name} {surname}</b> with email <b>{email}</b> exist on database!</div>"
                 flag = 0
             else:
                 insertClient(name, surname, email, date_of_birth, type_of_visit)
@@ -156,7 +157,7 @@ with col4:
         if email != '':
             deleteClient(email)
             conn.commit()
-            success_message = f"<div class='success_message'>Client with email {email} is removed!</div>"
+            success_message = f"<div class='success_message'>Client with email <b>{email}</b> is removed!</div>"
             flag = 1
         else:
             error_message = "<div class='error_message'>Please 'email' field is necessary!</div>"
