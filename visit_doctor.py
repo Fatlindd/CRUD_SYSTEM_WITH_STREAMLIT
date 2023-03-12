@@ -3,8 +3,7 @@ import sqlite3
 from datetime import date
 
 
-st.title(':male-doctor: Metting with the doctor :female-doctor:')
-
+st.title(':male-doctor: :blue[Metting with the doctor] :female-doctor:')
 
 # connection to database
 conn = sqlite3.connect('clients.db')
@@ -60,10 +59,10 @@ def updateClient(email):
 
 # Insert Method to add data into database clients
 def insertClient(name, surname, email, date_of_birth, type_of_visit):
-        cursor.execute('''
-            INSERT INTO clients
-            VALUES (?, ?, ?, ?, ?)
-        ''', (name, surname, email, date_of_birth, type_of_visit))
+    cursor.execute('''
+        INSERT INTO clients
+        VALUES (?, ?, ?, ?, ?)
+    ''', (name, surname, email, date_of_birth, type_of_visit))
 
 
 # Delete method to delete a record based on email
@@ -120,10 +119,15 @@ with col1:
     create = st.button('Create')
     if create:
         if name != "" and surname != "" and email != "" and date_of_birth != "" and type_of_visit != "":
-            insertClient(name, surname, email, date_of_birth, type_of_visit)
-            conn.commit()
-            success_message = "<div class='success_message'>Client was successfully added!</div>"
-            flag = 1
+            client_email = cursor.execute("SELECT * FROM clients WHERE EMAIL=?", (email, ))
+            if client_email:
+                error_message = f"<div class='error_message'>Client {name} {surname} with email {email} exist on database!</div>"
+                flag = 0
+            else:
+                insertClient(name, surname, email, date_of_birth, type_of_visit)
+                conn.commit()
+                success_message = "<div class='success_message'>Client was successfully added!</div>"
+                flag = 1
         else:
             error_message = "<div class='error_message'>Please all fields are required!</div>"
             flag = 0
