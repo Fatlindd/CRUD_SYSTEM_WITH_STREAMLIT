@@ -52,9 +52,15 @@ with col2:
 # Update method is to populate fields of input when we add email and we want to update
 def updateClient(email):
     # Query database for user data based on email
-    query = "SELECT * FROM clients WHERE EMAIL = ?"
-    cursor.execute(query, (email,))
-    result = cursor.fetchone()
+    cursor.execute("""
+            UPDATE clients 
+            SET NAME=?, 
+            SURNAME=?, 
+            DATA_OF_BIRTH=?, 
+            Type_Of_Visit=?
+            WHERE EMAIL=?
+        """, (name, surname, date_of_birth, type_of_visit, email))
+        
 
 
 
@@ -149,7 +155,14 @@ with col2:
 with col3:
     update = st.button('Update')
     if update:
-        updateClient(email)
+        if name != "" and surname != "" and email != "" and date_of_birth != "" and type_of_visit != "":
+            updateClient(email)
+            conn.commit()
+            success_message = "<div class='success_message'>Client was successfully updated!</div>"
+            flag = 1
+        else:
+            error_message = "<div class='error_message'>Uppss! All fields are required!</div>"
+            flag = 0
 
 
 with col4:
